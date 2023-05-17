@@ -3,7 +3,7 @@ import otpModel from '../models/otp';
 import userModel from '../models/users';
 import { sign } from 'jsonwebtoken';
 import logger from '../utils/logger';
-import { ErrorCode, HandyManError } from '../utils/error';
+import { ErrorCode, HealthcareError } from '../utils/error';
 
 const UserOtpStrategy = new Strategy(async function verify(mobile, otp, cb) {
 	console.log('user verified');
@@ -14,7 +14,7 @@ const UserOtpStrategy = new Strategy(async function verify(mobile, otp, cb) {
 		// Throw error if you cant find the entry in OTPs collections
 		// Either the TTL has expired or the client sent wrong details
 		if (OTPdata === null) {
-			throw new HandyManError(ErrorCode.BAD_DATA, `Invalid mobile number ${mobile}`);
+			throw new HealthcareError(ErrorCode.BAD_DATA, `Invalid mobile number ${mobile}`);
 		} else if (OTPdata.OTPValue !== otp) {
 			throw new Error('Wrong OTP.');
 		}

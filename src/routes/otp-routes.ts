@@ -3,7 +3,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import passport from 'passport';
 import { generateOTPController } from '../controller/otp-controller';
 import { generateOTPSchema, requestSchemaOTP } from '../joi-schemas/requestMiddleware';
-import { ErrorCode, HandyManError } from '../utils/error';
+import { ErrorCode, HealthcareError } from '../utils/error';
 import logger from '../utils/logger';
 
 
@@ -17,7 +17,7 @@ OTPRouter.post('/userlogin', requestSchemaOTP, passport.authenticate('userOtp', 
   },
   async (error: any, req: Request, res: Response, next: NextFunction) => {
     logger.error(error.message);
-    if (error instanceof HandyManError && error.code === ErrorCode.BAD_DATA) {
+    if (error instanceof HealthcareError && error.code === ErrorCode.BAD_DATA) {
       res.status(400).json({ message: error.message });
       return;
     } else if (error.isJoi === true) {

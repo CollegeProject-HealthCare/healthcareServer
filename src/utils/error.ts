@@ -4,16 +4,16 @@ export enum ErrorCode {
   CONN_ERROR = "CONN_ERROR"
 }
 
-export interface HandyManErrorMsg {
+export interface HealthcareErrorMsg {
   message: string,
   code: ErrorCode
 }
 
-export class HandyManError extends Error {
+export class HealthcareError extends Error {
   code: ErrorCode;
   constructor(code: ErrorCode, message: string) {
     super(message);
-    this.name = 'HandymanError';
+    this.name = 'HealthcareError';
     this.code = code;
   }
 }
