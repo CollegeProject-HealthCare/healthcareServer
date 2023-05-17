@@ -80,4 +80,4 @@ const userSchema: Schema = new Schema({
 	},
 });
 
-export default model('healthcare', userSchema);
+export default model('user', userSchema);

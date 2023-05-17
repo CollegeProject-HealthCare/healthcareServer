@@ -1,3 +1,4 @@
+
 import { Strategy } from 'passport-local';
 import otpModel from '../models/otp';
 import userModel from '../models/users';
@@ -6,7 +7,6 @@ import logger from '../utils/logger';
 import { ErrorCode, HealthcareError } from '../utils/error';
 
 const UserOtpStrategy = new Strategy(async function verify(mobile, otp, cb) {
-	console.log('user verified');
 	try {
 		// Get the otp from OTPs collection
 		const OTPdata = await otpModel.findOne({ mobileNumber: mobile });
@@ -42,6 +42,7 @@ const UserOtpStrategy = new Strategy(async function verify(mobile, otp, cb) {
 			return cb(null, { user: foundUser, token: jwt });
 		}
 
+
 		//If the user doesn't exist, create a new user
 		const newUser = new userModel({
 			providers: [
@@ -58,7 +59,8 @@ const UserOtpStrategy = new Strategy(async function verify(mobile, otp, cb) {
 			return cb(null, { user: savedUser.toObject(), token: jwt });
 		}
 	} catch (error: any) {
-		logger.error(error.stack);
+		logger.error('Issue in Opt Strategy')
+		// logger.error(error.stack);
 		cb(error, undefined);
 	}
 });
