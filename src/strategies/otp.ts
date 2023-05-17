@@ -52,6 +52,8 @@ const UserOtpStrategy = new Strategy(async function verify(mobile, otp, cb) {
 			],
 		});
 
+		console.log('===================', newUser);
+
 		const savedUser = await newUser.save();
 		if (savedUser !== null) {
 			const jwt = sign(savedUser.toObject(), 'SuperSecretKey', { algorithm: 'HS256', expiresIn: '4d' });
