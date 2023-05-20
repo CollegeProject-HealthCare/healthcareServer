@@ -39,7 +39,7 @@ export const receiversDetails = async (req: Request, res: Response) => {
       new: true
     });
     res.send({
-      message: 'receiver details ',
+      message: 'receiver details updated ',
       data: details
     });
   } catch (error: any) {
