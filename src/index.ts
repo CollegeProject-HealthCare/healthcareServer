@@ -8,6 +8,7 @@ import logger from './utils/logger';
 import OTPRoutes from './routes/otp-routes';
 import passport from 'passport';
 import { UserOtpStrategy } from './strategies/otp';
+import { receiversRouter } from './routes/receiverRoutes';
 
 mongoose.set('strictQuery', false);
 connect(process.env.MONGO_URI || 'mongo', (err) => {
@@ -23,6 +24,7 @@ app.use(cors());
 
 passport.use('userOtp', UserOtpStrategy);
 app.use('/auth/userOtp/', OTPRoutes);
+app.use('/v1/receivers', receiversRouter);
 
 // app.listen(PORT, () => {
 //   logger.info(`Application listening on http://localhost:${PORT}`);
