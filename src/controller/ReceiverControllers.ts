@@ -3,32 +3,32 @@ import receivers from '../models/Receiver'
 
 export const createReceivers = async (req: Request, res: Response,) => {
   try {
-      const newReceivers = await new receivers(req.body);
-      newReceivers.save()
-      res.send({
-          message: 'new receivers created',
-          data: newReceivers
-      });
+    const newReceivers = await new receivers(req.body);
+    newReceivers.save()
+    res.send({
+      message: 'new receivers created',
+      data: newReceivers
+    });
   } catch (error: any) {
-      error(error);
-      res.status(400).send({
-          message: error.message
-      });
+    error(error);
+    res.status(400).send({
+      message: error.message
+    });
   }
 };
 
 export const getAllreceivers = async (req: Request, res: Response) => {
   try {
-      const receiversList = await receivers.find({});
-      res.send({
-          message: 'all receivers listed',
-          data: receiversList
-      });
+    const receiversList = await receivers.find({ userId: req.query.id });
+    res.send({
+      message: 'all receivers listed',
+      data: receiversList
+    });
   } catch (error: any) {
-      error(error);
-      res.status(400).send({
-          message: error.message
-      });
+    error(error);
+    res.status(400).send({
+      message: error.message
+    });
   }
 };
 
@@ -51,15 +51,15 @@ export const receiversDetails = async (req: Request, res: Response) => {
 };
 
 export const receiversDetailsDelets = async (req: Request, res: Response) => {
-	try {
-		await receivers.findByIdAndDelete(req.query.id);
-		res.send({
-			message: 'receiver details deleted',
-		});
-	} catch (error: any) {
-		error(error);
-		res.status(400).send({
-			message: error.message,
-		});
-	}
+  try {
+    await receivers.findByIdAndDelete(req.query.id);
+    res.send({
+      message: 'receiver details deleted',
+    });
+  } catch (error: any) {
+    error(error);
+    res.status(400).send({
+      message: error.message,
+    });
+  }
 };
